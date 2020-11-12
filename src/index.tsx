@@ -28,8 +28,7 @@ const useScript = (url, onLoad) => {
 }
 
 export type ReactGodotProps = {
-  script: EngineLoaderDescription
-  pck: string
+  execname: string
   resize?: boolean
   width?: number
   height?: number
@@ -37,11 +36,13 @@ export type ReactGodotProps = {
 }
 
 const ReactGodot: FunctionComponent<ReactGodotProps> = props => {
-  const { script, pck, resize = false, width, height, params } = props
+  const { execname, resize = false, width, height, params } = props
+
   const outerRef = useRef<HTMLDivElement>(null)
   const [engine, setEngine] = useState<Engine>(null)
   const [dimensions, setDimensions] = useState([width, height])
 
+  const script = execname + ".js"
   useScript(script, () => {
     const scope = window as any
     setEngine(() => scope.Engine)
@@ -61,8 +62,8 @@ const ReactGodot: FunctionComponent<ReactGodotProps> = props => {
       <AsyncLoading>
         {engine && (
           <ReactCanvas
-            pck={pck}
             engine={engine}
+            execname={execname}
             width={dimensions[0]}
             height={dimensions[1]}
             params={params}

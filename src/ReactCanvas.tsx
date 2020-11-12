@@ -6,7 +6,7 @@ import { useLoading } from "./AsyncLoading"
 
 export type ReactEngineProps = {
   engine: Engine
-  pck: string
+  execname: string
   width?: number
   height?: number
   params?: any
@@ -21,7 +21,7 @@ function toFailure(err) {
 
 const ReactCanvas: FunctionComponent<ReactEngineProps> = ({
   engine,
-  pck,
+  execname,
   width = 480,
   height = 300
 }) => {
@@ -38,10 +38,11 @@ const ReactCanvas: FunctionComponent<ReactEngineProps> = ({
     }
   }, [engine])
 
+  const pck = execname + ".pck"
   useEffect(() => {
     if (instance) {
       instance
-        .startGame(pck)
+        .startGame(execname, pck)
         .then(() => {
           changeLoadingState({ mode: "hidden", initialized: true })
         })
