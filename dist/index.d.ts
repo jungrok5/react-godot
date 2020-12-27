@@ -4,8 +4,7 @@
 import "./styles.css";
 import { FunctionComponent } from "react";
 export declare type ReactGodotProps = {
-    script: EngineLoaderDescription;
-    pck: string;
+    execname: string;
     resize?: boolean;
     width?: number;
     height?: number;

@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 export declare type ReactEngineProps = {
     engine: Engine;
-    pck: string;
+    execname: string;
     width?: number;
     height?: number;
     params?: any;

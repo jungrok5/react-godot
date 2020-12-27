@@ -7,7 +7,7 @@ function toFailure(err) {
     return { msg: msg, mode: "notice", initialized: true };
 }
 var ReactCanvas = function (_a) {
-    var engine = _a.engine, pck = _a.pck, _b = _a.width, width = _b === void 0 ? 480 : _b, _c = _a.height, height = _c === void 0 ? 300 : _c;
+    var engine = _a.engine, execname = _a.execname, _b = _a.width, width = _b === void 0 ? 480 : _b, _c = _a.height, height = _c === void 0 ? 300 : _c;
     var canvasRef = useRef(null);
     var _d = useState(), instance = _d[0], setInstance = _d[1];
     var _e = useLoading(), loadingState = _e[0], changeLoadingState = _e[1];
@@ -20,10 +20,11 @@ var ReactCanvas = function (_a) {
             changeLoadingState(toFailure("WebGL not available"));
         }
     }, [engine]);
+    var pck = execname + ".pck";
     useEffect(function () {
         if (instance) {
             instance
-                .startGame(pck)
+                .startGame(execname, pck)
                 .then(function () {
                 changeLoadingState({ mode: "hidden", initialized: true });
             })
