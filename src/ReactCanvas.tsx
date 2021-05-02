@@ -26,7 +26,7 @@ const ReactCanvas: FunctionComponent<ReactEngineProps> = ({
   height = 300
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [instance, setInstance] = useState()
+  const [instance, setInstance] = useState<Engine>(null)
   const [loadingState, changeLoadingState] = useLoading()
 
   useEffect(() => {
