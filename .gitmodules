@@ -1,0 +1,3 @@
+[submodule "example/public/StarryShtetlDefenderExport"]
+	path = example/public/StarryShtetlDefenderExport
+	url = https://github.com/nikolawhallon/StarryShtetlDefenderExport.git
