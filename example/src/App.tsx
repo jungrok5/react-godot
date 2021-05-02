@@ -3,11 +3,10 @@ import "react-godot/dist/styles.css"
 import React from "react"
 import ReactGodot from "react-godot"
 
-const examplePck = "/flappy/flappy.pck"
-const exampleEngine = "/flappy/flappy.js"
+const exampleExecName = "/StarryShtetlDefenderExport/Starry Shtetl Defender"
 
 function App() {
-  return <ReactGodot pck={examplePck} script={exampleEngine} />
+  return <ReactGodot execname={exampleExecName} />
 }
 
 export default App
