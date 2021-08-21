@@ -20,7 +20,7 @@ import ReactGodot from 'react-godot'
 class Example extends React.Component {
   render () {
     return (
-      <ReactGodot execname='/path/to/myGame' />
+      <ReactGodot script='/path/to/myGame.js' pck='/path/to/myGame.pck' />
     )
   }
 }

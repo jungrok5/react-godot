@@ -11,36 +11,39 @@ var ReactCanvas = function (_a) {
     var canvasRef = useRef(null);
     var _d = useState(null), instance = _d[0], setInstance = _d[1];
     var _e = useLoading(), loadingState = _e[0], changeLoadingState = _e[1];
-
-    const GODOT_CONFIG = {"args":[],"canvasResizePolicy":0,"executable":execname,"experimentalVK":false,"gdnativeLibs":[]};
-
     useEffect(function () {
         if (engine.isWebGLAvailable()) {
             changeLoadingState({ mode: "indeterminate" });
-            setInstance(new engine(GODOT_CONFIG));
+            setInstance(new engine());
         }
         else {
             changeLoadingState(toFailure("WebGL not available"));
         }
     }, [engine]);
-
+    var pck = execname + ".pck";
     useEffect(function () {
         if (instance) {
-            instance.startGame({
-                'onProgress': function (current, total) {
-                    if (total > 0) {
-                        changeLoadingState({ mode: "progress", percent: current / total });
-                    }
-                    else {
-                        changeLoadingState({ mode: "indeterminate" });
-                    }
-                },
-            }).then(() => {
+            instance
+                .startGame(execname, pck)
+                .then(function () {
                 changeLoadingState({ mode: "hidden", initialized: true });
             })
-            .catch(function (err) { return changeLoadingState(toFailure(err)); });
+                .catch(function (err) { return changeLoadingState(toFailure(err)); });
+            instance.setProgressFunc(function (current, total) {
+                if (total > 0) {
+                    changeLoadingState({ mode: "progress", percent: current / total });
+                }
+                else {
+                    changeLoadingState({ mode: "indeterminate" });
+                }
+            });
         }
-    }, [instance, changeLoadingState]);
+    }, [instance, pck, changeLoadingState]);
+    useEffect(function () {
+        if (instance) {
+            instance.setCanvas(canvasRef.current);
+        }
+    }, [instance, canvasRef.current]);
     return (React.createElement("canvas", { ref: canvasRef, id: "canvas", width: width, height: height, style: { display: loadingState.initializing ? "hidden" : "block" } },
         "HTML5 canvas appears to be unsupported in the current browser.",
         React.createElement("br", null),
